@@ -57,7 +57,10 @@ const employees = [
 function averageSalary(workers) {
     let total_salary = workers
         .map(worker => worker.salary)
-        .reduce((a, b) => a + b, 0)
+        .reduce(
+            (accumulator, currentValue) =>
+            (accumulator + currentValue, 0)
+        )
 
     return (total_salary / workers.length) || 0;
 }

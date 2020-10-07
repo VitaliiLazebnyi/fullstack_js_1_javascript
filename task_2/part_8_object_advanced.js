@@ -10,8 +10,10 @@
 
 // Date of birth - year only is expected.
 const person = {
-    firstName: '',
-    lastName:  '',
+    firstName:   '',
+    lastName:    '',
+    birthday:  null,
+    age:       null,
 
     get fullName() {
         return `${this.firstName} ${this.lastName}`;
@@ -23,18 +25,22 @@ const person = {
         this.lastName  = name[1];
     },
 
-    get age() {
-        return new
-            Number(
-                (new Date().getTime()
-                        - this.dateOfBirth.getTime())
-                / 31536000000
-            )
-            .toFixed(0)
+    set dateOfBirth(date) {
+        this.age = new Number(
+            (
+                new Date().getTime() - date.getTime()) / 31536000000
+        ).toFixed(0);
+
+        this.birthday = date;
+    },
+
+    get dateOfBirth() {
+        return this.birthday;
     }
 };
 
 person.fullName = 'Vinni Pukh';
 person.dateOfBirth = new Date(1995, 0, 17);
+console.log(person.dateOfBirth);
 console.log(person.fullName);
 console.log(person.age);

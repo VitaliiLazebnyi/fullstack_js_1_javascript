@@ -4,15 +4,6 @@
 array1 = [0, 3, 4];
 array2 = [0, 3, 4, 1];
 
-// Raises error is any element is not a number
-function validate_array(arr) {
-    arr.forEach(function(element){
-        if (typeof(element) != 'number'){
-            throw new Error(`Invalid array element '${element}'`);
-        }
-    })
-}
-
 // Function will return
 // -1 if 1st array is 'bigger'
 //  0 if they are equal
@@ -35,9 +26,6 @@ function compare_elements(el1, el2) {
 //
 // Both arrays are expected to contain numeric elements only.
 function compare_arrays(arr1, arr2) {
-    validate_array(arr1);
-    validate_array(arr2);
-
     if (arr1.length != arr2.length) {
         return compare_elements(arr1.length, arr2.length);
     }
