@@ -21,15 +21,30 @@
 // box.getAmount(); // 2
 
 function MoneyBox() {
-    this.coins     = 0;
+    let coins     = 0;
 
-    this.getAmount = () => this.coins;
-    this.addCoin   = () => this.coins++;
+    const getAmount = () => coins;
+    const addCoin   = () => coins++;
+
+    return {
+        getAmount,
+        addCoin
+    };
 }
 
-const box = new MoneyBox();
+const box = MoneyBox();
+
+console.log(box.getAmount()); // 0
 
 console.log(box.getAmount()); // 0
 box.addCoin();
 box.addCoin();
 console.log(box.getAmount()); // 2
+console.log(box.coins);       // undefined
+box.coins++;
+console.log(box.coins);       // NaN
+box.coins = 777;
+console.log(box.getAmount()); // 2
+box.coins++;
+console.log(box.getAmount()); // 2
+console.log(box.coins);       // 2
