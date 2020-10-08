@@ -21,6 +21,3 @@ console.log(arr);
 
 arr.shuffle();
 console.log(arr);
-
-
-
