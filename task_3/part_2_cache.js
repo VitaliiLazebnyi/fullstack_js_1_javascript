@@ -18,25 +18,25 @@
 //
 
 function cache() {
-    this.store = {};
+    let store = {};
 
-    function execute(a, b) {
-        operation = `${a}*${b}`;
+    const execute = (a, b) => {
+        let operation = `${a}*${b}`;
 
-        if (operation in this.store) {
+        if (operation in store) {
             return {
-                value: this.store[operation],
+                value: store[operation],
                 cache: true
             };
         }
 
-        this.store[operation] = a * b;
+        store[operation] = a * b;
 
         return {
-            value: this.store[operation],
+            value: store[operation],
             cache: false
         };
-    }
+    };
 
     return execute;
 }
@@ -46,3 +46,4 @@ console.log(calculator)
 console.log(calculator(2,3));
 console.log(calculator(3,3));
 console.log(calculator(2,3));
+console.log(calculator.store);
