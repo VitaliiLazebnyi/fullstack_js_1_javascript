@@ -14,31 +14,50 @@
 // его цене сумма */
 
 function sellTickets() {
-    this.concertsList = [];
-    this.ticketsList  = [];
+    // let concertsList = {};
+    let soldTicketsList = {};
+    let money        = 0;
+    let prices       = {};
 
-    this.createEvent = (title) => this.concertsList.push(title);
-    this.sellTicket  = (title) => {
+    // psssss... no float prices ;)
+    const createEvent = (title, price) => prices[title] = price;
+
+    const sellTicket  = (title) => {
         let id = Math.random().toString(36).substr(3, 6);
-        this.ticketsList.push(id);
+
+        soldTicketsList[id] = title;
+        money += prices[title];
+
         return id;
     }
 
-    this.returnTicket = (id) => {
-        let index = this.ticketsList.indexOf(id);
-        this.ticketsList.splice(index, 1);
-        return this.ticketsList;
+    const returnTicket = (id) => {
+        delete soldTicketsList[id];
+        return soldTicketsList;
     };
 
-    this.tickets      = () => this.ticketsList;
+    const tickets      = () => soldTicketsList;
+    const getMoney     = () => money;
 
+
+    return {
+        prices,
+        soldTicketsList,
+        getMoney,
+        createEvent,
+        sellTicket,
+        returnTicket,
+        tickets
+    }
 }
 
 const ticketWindow = new sellTickets();
-ticketWindow.createEvent('Evans');
+ticketWindow.createEvent('Evans', 200);
 
 id = ticketWindow.sellTicket('Evans')
 console.log(ticketWindow.tickets());
+console.log(ticketWindow.getMoney()); // 200
 console.log(id);
 ticketWindow.returnTicket(id)
 console.log(ticketWindow.tickets());
+console.log(ticketWindow.getMoney()); // 0
