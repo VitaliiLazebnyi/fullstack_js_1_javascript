@@ -23,30 +23,37 @@
 // calculator.history() // []
 
 function Calc() {
-    this.historyArray = [];
-    this.operations   = {};
+    let historyArray = [];
+    let operations   = {};
 
-    this.history      =
-        () => this.historyArray;
-    this.addOperation =
-        (oper, func) => this.operations[oper] = func;
-    this.addOperation('+', (a, b) => a + b );
-    this.addOperation('-', (a, b) => a - b );
+    const history      = () => historyArray;
+    const addOperation =
+        (oper, func) => operations[oper] = func;
 
-    this.operation    = (string) => {
+    addOperation('+', (a, b) => a + b );
+    addOperation('-', (a, b) => a - b );
+
+    const operation    = (string) => {
         let [a, oper, b] = string.split(' ');
         a = Number(a);
         b = Number(b);
 
-        this.historyArray.push({
+        historyArray.push({
             operation: oper,
-            operands: [a,b]
+            operands: [a, b]
         });
 
-        return this.operations[oper](a, b);
+        return operations[oper](a, b);
     };
 
-    this.clearHistory = () => this.historyArray = [];
+    const clearHistory = () => historyArray = [];
+
+    return {
+        operation,
+        addOperation,
+        history,
+        clearHistory
+    }
 }
 
 const calculator = new Calc();
