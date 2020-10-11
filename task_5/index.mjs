@@ -9,7 +9,7 @@ game.start();
 game.movePiece('g2', 'g4'); // white
 game.movePiece('e7', 'e5'); // black
 game.movePiece('f2', 'f3'); // white
-game.movePiece('d8', 'd4'); // black
+game.movePiece('d8', 'h4'); // black
 game.proposeToGiveUpTo('white');
 game.acceptGiveUp();
 

@@ -1,23 +1,45 @@
-const bishopsMoves = (x, y) => {
-    let moves = [];
-    for (let i = 1; i <= 8; i++) {
-        moves.push([x+1, y]);
-        moves.push([x+1, y+1]);
-        moves.push([x-1, y]);
-        moves.push([x-1, y-1]);
+const bishopsMoves = (from, board) => {
+    let [from_y, from_x] = from;
+    let ownColor         = board[from[0]][from[1]].color;
+    let moves   = [];
+    let vectors = [[1, 1], [-1, -1], [1, -1], [-1, 1]];
+    let vector  = null;
+
+    // for (const vector in vectors) {
+    for (let vector_i = 0; vector_i < vectors.length; vector_i++){
+        vector = vectors[vector_i];
+
+        for (let i = 1; i < 8; i++){
+            let to_y = from_y + i * vector[1];
+            let to_x = from_x + i * vector[0];
+
+            if (to_x < 0 || to_x > 7 || to_y < 0 || to_y > 7){
+                break;
+            }
+
+            // if destination is empty
+            if (!board[to_y][to_x]){
+                moves.push([to_y, to_x]);
+                continue;
+            }
+
+            // if destination is occupied by own piect
+            if (ownColor === board[to_y][to_x].color) {
+                break;
+            }
+
+            // if destination contains occupied by enemies pierce
+            moves.push([to_y, to_x]);
+            break;
+        }
     }
 
     return moves;
-};
+}
 
-const rooksMoves = (x, y) => {
+const rooksMoves = (from, board) => {
     let moves = [];
-    for (let i = 1; i <= 8; i++) {
-        moves.push([x-i, y]);
-        moves.push([x+i, y]);
-        moves.push([x,   y-i]);
-        moves.push([x,   y+i]);
-    }
+    // to implement if necessary
     return moves;
 };
 
@@ -88,50 +110,37 @@ class Bishop extends AbstractPiece {
 }
 
 class Knight extends AbstractPiece {
-    get generateMoves() {
-        return (x, y) => {
-            return [
-                [x-2, y+1],
-                [x-1, y+2],
-                [x+1, y+2],
-                [x+2, y+1],
-                [x+2, y-1],
-                [x+1, y-2],
-                [x-1, y-2],
-                [x-2, y-1]
-            ];
-        }
+    generateMoves(from, board) {
+        let [from_x, from_y] = from;
+        return [
+            [from_y+1, from_x-2],
+            [from_y+2, from_x-1],
+            [from_y+2, from_x+1],
+            [from_y+1, from_x+2],
+            [from_y-1, from_x+2],
+            [from_y-2, from_x+1],
+            [from_y-2, from_x-1],
+            [from_y-1, from_x-2]
+        ];
     };
 }
 
 class Rook extends AbstractPiece {
-    get generateMoves() {
-        return rooksMoves;
+    generateMoves(from, board) {
+        return rooksMoves(from, board);
     };
 }
 
 class Queen extends AbstractPiece {
-    get generateMoves() {
-        return (x, y) => {
-            return rooksMoves(x, y).concat(bishopsMoves(x, y));
-        };
+    generateMoves(from, board) {
+        return bishopsMoves(from, board);
+        // return rooksMoves(from, board).concat(bishopsMoves(from, board));
     };
 }
 
 class King extends AbstractPiece {
-    get generateMoves() {
-        return (x, y) => {
-            return [
-                [x+1, y],
-                [x+1, y+1],
-                [x,   y+1],
-                [x-1, y+1],
-                [x-1, y],
-                [x-1, y-1],
-                [x,   y-1],
-                [x+1, y-1]
-            ];
-        };
+    generateMoves(from, board) {
+        // to implement if necessary
     };
 }
 
