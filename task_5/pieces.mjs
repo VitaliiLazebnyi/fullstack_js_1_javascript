@@ -46,11 +46,15 @@ class AbstractPiece {
 class Pawn extends AbstractPiece {
     get generateMoves() {
         if (this._color == 'white') {
-            return (x, y) => [[x + 1, y]];
+            return function (x, y) {
+                return [x + 1, y];
+            };
         }
 
         // for black
-        return (x, y) => [[x - 1, y]];
+        return function (x, y) {
+            return [x - 1, y];
+        };
     }
 }
 

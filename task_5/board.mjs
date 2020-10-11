@@ -39,7 +39,7 @@ class Board {
             this.#fillEmptyRow(),
             this.#fillEmptyRow(),
             this.#fillPawnRow('white'),
-            this.#fillPawnRow('white'),
+            this.#fillLastRow('white'),
         ]
     };
 
@@ -50,10 +50,7 @@ class Board {
     #convertCoordinatesToInt(coordinate){
         let x = {a: 0, b: 1, c: 2, d: 3,
             e: 4, f: 5, g: 6, h: 7}[coordinate[0]];
-        let y = parseInt(coordinate[1]) + 7;
-
-        console.log(coordinate);
-        console.log([x,y]);
+        let y = 8 - parseInt(coordinate[1]);
 
         return [x, y];
     }
@@ -66,21 +63,22 @@ class Board {
     }
 
     #validateMoves(from, to){
-        console.log(from);
-        console.log(this.#field);
+        let piece = this.#field[from[1]][from[0]];
 
-        let piece = this.#field[from[0], from[1]];
         if (!piece){
             throw new Error('nothing to move');
         }
 
-        let possibleMoves = piece.generateMoves();
+        let possibleMoves = piece.generateMoves(from[1],from[2]);
+
+        if (possibleMoves.map(()))
+
         console.log(possibleMoves);
     }
 
     move(from, to){
-        let from_x, from_y = this.#convertCoordinatesToInt(from);
-        let to_x,   to_y   = this.#convertCoordinatesToInt(to);
+        let [from_x, from_y] = this.#convertCoordinatesToInt(from);
+        let [to_x,   to_y]   = this.#convertCoordinatesToInt(to);
 
         this.#validateMoves([from_x, from_y], [to_x, to_y]);
 
