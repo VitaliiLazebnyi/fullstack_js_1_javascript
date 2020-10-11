@@ -27,9 +27,6 @@ class Game {
     };
 
     movePiece(from, to) {
-        console.log(from);
-        console.log(this.#board.color(from));
-
         if (this.#turn !== this.#board.color(from)){
             throw new Error('Wrong turn.');
         }
@@ -46,7 +43,6 @@ class Game {
         }
     }
 
-
     proposeToGiveUpTo(color){
         this.#setState('give up proposition');
     }
@@ -60,11 +56,15 @@ class Game {
     }
 
     get showField(){
-        return this.#board.field;
+        return this.#board.userFriendlyField;
     }
 
     get showRemoved(){
         return this.#board.removed;
+    }
+
+    get showHistory(){
+        return this.#board.showHistory;
     }
 }
 

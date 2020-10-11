@@ -111,8 +111,28 @@ class Board {
         return this.#field;
     }
 
-    get removed(){
+    get userFriendlyField() {
+        let fieldString = this.#field.map((row)=> {
+            return row.map((element)=> {
+                if (!element) {
+                    return '  ';
+                }
+
+                let pierce = element.color[0]
+                    + element.constructor.name[0];
+                return pierce;
+            })
+        }).join("\n");
+
+        return fieldString;
+    }
+
+    get removed() {
         return this.#removed;
+    }
+
+    get showHistory() {
+        return this.#history;
     }
 }
 

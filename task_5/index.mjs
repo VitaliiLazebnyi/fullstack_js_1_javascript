@@ -16,3 +16,4 @@ game.acceptGiveUp();
 
 console.log(game.showField);
 console.log(game.showRemoved);
+console.log(game.showHistory);
