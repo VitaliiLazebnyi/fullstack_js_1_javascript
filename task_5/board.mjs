@@ -41,6 +41,8 @@ class Board {
             this.#fillPawnRow('white'),
             this.#fillLastRow('white'),
         ]
+
+        console.log(this.#field);
     };
 
     constructor() {
@@ -52,38 +54,38 @@ class Board {
             e: 4, f: 5, g: 6, h: 7}[coordinate[0]];
         let y = 8 - parseInt(coordinate[1]);
 
-        return [x, y];
+        return [y, x];
     }
 
     #convertCoodrdinateToUser(x, y){
         let map = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-        let coordinate = `${map[x]}${y+1}`;
+        let coordinate = `${map[y]}${x+1}`;
 
         return coordinate;
     }
 
     #validateMoves(from, to){
-        let piece = this.#field[from[1]][from[0]];
+        let [y, x] = from;
+        let piece  = this.#field[y][x];
 
         if (!piece){
             throw new Error('nothing to move');
         }
 
-        let possibleMoves = piece.generateMoves(from[1],from[2]);
-
-        if (possibleMoves.map(()))
-
+        let possibleMoves = piece.generateMoves([y, x], this.#field);
         console.log(possibleMoves);
+
     }
 
     move(from, to){
-        let [from_x, from_y] = this.#convertCoordinatesToInt(from);
-        let [to_x,   to_y]   = this.#convertCoordinatesToInt(to);
+        let [from_y, from_x] = this.#convertCoordinatesToInt(from);
+        let [to_y,   to_x]   = this.#convertCoordinatesToInt(to);
 
-        this.#validateMoves([from_x, from_y], [to_x, to_y]);
+        console.log([from_y, from_x]);
+        this.#validateMoves([from_y, from_x], [to_y, to_x]);
 
-        this.#field[to_x][to_y]     = this.#field[from_x][from_y];
-        this.#field[from_x][from_y] = null;
+        this.#field[to_y][to_x]     = this.#field[from_y][from_x];
+        this.#field[from_y][from_x] = null;
         this.#history.push(`${from}->${to}`);
     }
 

@@ -44,17 +44,40 @@ class AbstractPiece {
 }
 
 class Pawn extends AbstractPiece {
-    get generateMoves() {
-        if (this._color == 'white') {
-            return function (x, y) {
-                return [x + 1, y];
-            };
+    generateMoves(from, board) {
+        let [y, x]        = from;
+        let ownColor      = board[from[0]][from[1]].color;
+        let possibleMoves = [];
+        let direction     = 1;
+
+        if (ownColor === 'white'){
+            direction = -1;
+        } else {
+            direction = 1;
         }
 
-        // for black
-        return function (x, y) {
-            return [x - 1, y];
-        };
+        if (!board[y+direction][x]){
+            possibleMoves.push([y+direction, x]);
+        }
+
+        if (
+            (ownColor === 'white' && y === 6) ||
+            (ownColor === 'black' && y === 1)
+        ){
+            possibleMoves.push([y+direction*2, x]);
+        }
+
+        if (board[y+direction][x-1] &&
+            board[y+direction][x-1].color !== ownColor){
+            possibleMoves.push([y+direction, x-1]);
+        }
+
+        if (board[y+direction][x+1] &&
+            board[y+direction][x+1].color !== ownColor){
+            possibleMoves.push([y+direction, x+1]);
+        }
+
+        return possibleMoves;
     }
 }
 
