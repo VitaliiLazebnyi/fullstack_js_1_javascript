@@ -23,6 +23,10 @@ class Game {
 
     movePiece(from, to) {
         this.#board.move(from, to);
+    };
+
+    get showField(){
+        return this.#board.field;
     }
 }
 

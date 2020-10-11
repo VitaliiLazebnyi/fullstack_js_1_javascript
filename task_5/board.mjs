@@ -41,8 +41,6 @@ class Board {
             this.#fillPawnRow('white'),
             this.#fillLastRow('white'),
         ]
-
-        console.log(this.#field);
     };
 
     constructor() {
@@ -65,16 +63,25 @@ class Board {
     }
 
     #validateMoves(from, to){
-        let [y, x] = from;
-        let piece  = this.#field[y][x];
+        let [from_y, from_x] = from;
+        let [to_y, to_x]     = to;
+        let piece  = this.#field[from_y][from_x];
 
         if (!piece){
             throw new Error('nothing to move');
         }
 
-        let possibleMoves = piece.generateMoves([y, x], this.#field);
+        let possibleMoves = piece.generateMoves([from_y, from_x], this.#field);
         console.log(possibleMoves);
+        console.log([to_y, to_x]);
 
+        for(const move of possibleMoves){
+            if (move[0] === to_y && move[1] === to_x){
+                return;
+            }
+        }
+
+        throw new Error('Invalid move');
     }
 
     move(from, to){
@@ -89,6 +96,11 @@ class Board {
         this.#history.push(`${from}->${to}`);
     }
 
+    get field() {
+        console.log(this.#field);
+        console.log(this.#history);
+        return this.#field;
+    }
 }
 
 export { Board };
