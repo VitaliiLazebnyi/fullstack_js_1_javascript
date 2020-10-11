@@ -3,6 +3,7 @@ import { Pawn, Bishop, Knight, Rook, Queen, King } from './pieces.mjs';
 class Board {
     #field   = null;
     #history = [];
+    #removed = [];
 
     #fillLastRow(color) {
         let rook   = new Rook(color);
@@ -72,8 +73,6 @@ class Board {
         }
 
         let possibleMoves = piece.generateMoves([from_y, from_x], this.#field);
-        console.log(possibleMoves);
-        console.log([to_y, to_x]);
 
         for(const move of possibleMoves){
             if (move[0] === to_y && move[1] === to_x){
@@ -88,18 +87,32 @@ class Board {
         let [from_y, from_x] = this.#convertCoordinatesToInt(from);
         let [to_y,   to_x]   = this.#convertCoordinatesToInt(to);
 
-        console.log([from_y, from_x]);
         this.#validateMoves([from_y, from_x], [to_y, to_x]);
 
+        if (this.#field[to_y][to_x]){
+            this.#removed.push(this.#field[to_y][to_x]);
+        }
         this.#field[to_y][to_x]     = this.#field[from_y][from_x];
         this.#field[from_y][from_x] = null;
         this.#history.push(`${from}->${to}`);
     }
 
+    color(coordinates){
+        let [y, x] = this.#convertCoordinatesToInt(coordinates);
+
+        if (this.#field[y][x]){
+            return this.#field[y][x].color;
+        }
+
+        return null;
+    }
+
     get field() {
-        console.log(this.#field);
-        console.log(this.#history);
         return this.#field;
+    }
+
+    get removed(){
+        return this.#removed;
     }
 }
 
