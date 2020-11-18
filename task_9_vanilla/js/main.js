@@ -1,13 +1,7 @@
 //
 // Events part
 //
-document
-    .querySelector('#giphyForm #apiKey')
-    .addEventListener('change',
-        (event) => {
-        this.giphyLib = new GiphyHTTPLib(event.target.value);
-    }
-);
+let giphyLib = new GiphyHTTPLib('6bT3iM2LCx1VSwxBMPGvc8PbHJ4C12cc');
 
 const setGiphiesEvent = () => {
     const gifs = document.querySelectorAll('.gyphy')
@@ -32,7 +26,7 @@ document
             const list = document.querySelector('#giphyList');
             list.innerHTML = '';
 
-            this.giphyLib.search(event.target.value).then(
+            giphyLib.search(event.target.value).then(
                 result => {
                     result['data'].forEach((giphy) => {
                         list.innerHTML += `<div class='gyphy' data-url='${giphy.images.downsized.url}'>${giphy.title}</div>`;
