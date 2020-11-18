@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang=”en-US'>
+
+<head>
+    <meta charset="utf-8">
+    <title>Giphys</title>
+    <meta name="description" content="Giphy searcher">
+</head>
+
+<body>
+
+<div id='giphy'>
+    <h3>Giphy image searcher</h3>
+
+    <form id='giphyForm'>
+        <label>
+            Search for:
+            <input id='searchFor' type="text" name="name" />
+        </label>
+    </form>
+
+    <div id='giphyList'>
+    </div>
+
+    <img id='giphyImg'
+         alt="Giphy image"
+         hidden='hidden'
+    />
+</div>
+
+<script src="libs/giphy_search.mjs"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>
