@@ -1,26 +1,38 @@
-let assert = require('assert')
-let sumPositive = require('../lib/sumPositive');
+const assert = require('assert');
+const sumPositive = require('../lib/sumPositive');
 
 describe('sumPositive()', () => {
-    it('returns sum of positive numbers', () => {
-        assert.equal(sumPositive([2, -50, 4]), 6);
-    })
+  it('returns sum of positive numbers', () => {
+    assert.deepEqual(sumPositive([2, -50, 4]), {
+      count: 2,
+      sum: 6,
+    });
+  });
 
-    it('accepts empty array', () => {
-        assert.equal(sumPositive([]), 0);
-    })
+  it('accepts empty array', () => {
+    assert.deepEqual(
+        sumPositive([]), {
+          count: 0,
+          sum: 0,
+        },
+    );
+  });
 
-    it('ignores invalid array elements', () => {
-        assert.equal(
-            sumPositive(['invalid', {}, [], ()=>{}]),
-            0
-        );
-    })
+  it('ignores invalid array elements', () => {
+    assert.deepEqual(
+        sumPositive(['invalid', {}, [], ()=>{}]), {
+          count: 0,
+          sum: 0,
+        },
+    );
+  });
 
-    it('returns 0 for nonArray parameters', () => {
-        assert.equal(
-            sumPositive('nonArray'),
-            0
-        );
-    })
-})
+  it('returns 0 for nonArray parameters', () => {
+    assert.deepEqual(
+        sumPositive('nonAnArray'), {
+          count: 0,
+          sum: 0,
+        },
+    );
+  });
+});

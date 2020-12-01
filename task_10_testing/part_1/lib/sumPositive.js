@@ -1,9 +1,25 @@
 module.exports = (arr) => {
-    if (!Array.isArray(arr)){
-        return 0
-    }
+  if (!Array.isArray(arr)) {
+    return {
+      count: 0,
+      sum: 0,
+    };
+  }
 
-    return arr.reduce(
-        (a, b) => a + (b > 0 ? b : 0) , 0
-    )
-}
+  let counter = 0;
+  let sum = 0;
+
+  arr.forEach(
+      (el) => {
+        if (el > 0) {
+          sum += el;
+          counter += 1;
+        }
+      },
+  );
+
+  return {
+    count: counter,
+    sum: sum,
+  };
+};
