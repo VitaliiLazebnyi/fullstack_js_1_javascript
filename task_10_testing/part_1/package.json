@@ -1,0 +1,14 @@
+{
+  "name": "part_1",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "mocha": "^8.2.1"
+  }
+}
