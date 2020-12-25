@@ -1,11 +1,15 @@
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.mjs',
     output: {
-        filename: 'main.js',
+        filename: 'main-[hash].js',
         path: path.resolve(__dirname, 'dist'),
     },
+    plugins: [
+        new CleanWebpackPlugin()
+    ],
     module: {
         rules: [
             {
